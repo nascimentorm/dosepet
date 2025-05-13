@@ -23,4 +23,7 @@ def create_app():
         from app.routes.pet_routes import pet_bp
         app.register_blueprint(pet_bp)
 
+        from app.routes.veterinarian_routes import veterinarian_bp  
+        app.register_blueprint(veterinarian_bp)                     
+
     return app

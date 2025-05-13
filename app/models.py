@@ -21,11 +21,17 @@ class Tutor(db.Model):
 
 class Veterinarian(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name_veterinarian = db.Column(db.String(100), nullable=False)
-    crmv = db.Column(db.String(20), nullable=False)
-    clinic = db.Column(db.String(100), nullable=False)
+    name_veterinarian = db.Column(db.String(120), nullable=False)
+    crmv = db.Column(db.String(20), unique=True, nullable=False)
+    clinic = db.Column(db.String(120), nullable=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
 
-    applications = db.relationship('Application', backref='veterinarian', lazy=True)
+    def set_password(self, password):
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)
 
 
 class Pet(db.Model):
