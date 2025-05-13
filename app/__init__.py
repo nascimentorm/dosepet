@@ -16,7 +16,11 @@ def create_app():
         from . import models
         db.create_all()
 
-        from app.routes.auth_routes import auth_bp  
-        app.register_blueprint(auth_bp)             
+        
+        from app.routes.auth_routes import auth_bp
+        app.register_blueprint(auth_bp)
+
+        from app.routes.pet_routes import pet_bp
+        app.register_blueprint(pet_bp)
 
     return app

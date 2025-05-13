@@ -36,8 +36,9 @@ class Pet(db.Model):
     colors = db.Column(db.String(100), nullable=True)
     date_of_birth = db.Column(db.Date, nullable=False)
     age = db.Column(db.Integer, nullable=False)
+    sex = db.Column(db.String(10), nullable=False) 
     photo_pet = db.Column(db.String(200))
-    tutor_id = db.Column(db.Integer, db.ForeignKey('tutor.id'), nullable=False)
+    tutor_cpf = db.Column(db.String(14), db.ForeignKey('tutor.cpf'), nullable=False)
 
     applications = db.relationship('Application', backref='pet', lazy=True)
 
