@@ -1,5 +1,3 @@
-# dosepet
-
 <img src="https://raw.githubusercontent.com/mikarrega/dosepet/d392bf05eb50f0c73952c03cff2e53a90cd7f007/public/dosepet-logo-vertical.svg" width="400" />
 About the Project
 <p>We help keep your pet's health up to date</p> <p>We send vaccination and medication reminders via email</p>
