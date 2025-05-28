@@ -23,3 +23,30 @@ def update_tutor():
 
     db.session.commit()
     return jsonify({'message': 'Dados atualizados com sucesso'}), 200
+
+
+# Altera Senha
+
+@tutor_bp.route('/update-password', methods=['PUT'])
+@jwt_required()
+def update_password():
+    tutor_id = int(get_jwt_identity())
+    tutor = Tutor.query.get(tutor_id)
+
+    if not tutor:
+        return jsonify({'message': 'Tutor não encontrado'}), 404
+
+    data = request.get_json()
+    senha_atual = data.get('senha_atual')
+    nova_senha = data.get('nova_senha')
+
+    if not senha_atual or not nova_senha:
+        return jsonify({'error': 'Campos obrigatórios: senha_atual e nova_senha'}), 400
+
+    if not tutor.check_password(senha_atual):
+        return jsonify({'error': 'Senha atual incorreta'}), 401
+
+    tutor.set_password(nova_senha)
+    db.session.commit()
+
+    return jsonify({'message': 'Senha atualizada com sucesso'}), 200
