@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify
 from app.models import Tutor, db
 from app import bcrypt
+from flask import request, jsonify
+from flask_jwt_extended import create_access_token
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -33,11 +35,8 @@ def login():
     tutor = Tutor.query.filter_by(email=data['email']).first()
 
     if tutor and tutor.check_password(data['password']):
-        return jsonify({"message": "Login realizado com sucesso!"}), 200
+        access_token = create_access_token(identity=str(tutor.id))
+
+        return jsonify(access_token=access_token), 200
 
     return jsonify({"error": "Email ou senha inválidos"}), 401
-
-from app.models import Tutor, Veterinarian, db
-from app import bcrypt
-
-
